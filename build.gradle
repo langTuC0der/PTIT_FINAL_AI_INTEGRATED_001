@@ -1,0 +1,56 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '4.1.1'
+    id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'vn.rikkei.exam'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Spring Boot: REST API, validation, database, health/metrics.
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    runtimeOnly 'org.postgresql:postgresql'
+
+    // Lombok
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    testCompileOnly 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
+
+    // Keep all Spring AI modules on one compatible version.
+    implementation platform('org.springframework.ai:spring-ai-bom:2.0.1')
+
+    // ChatClient, ChatModel, embeddings, ChatMemory and @Tool support.
+    implementation 'org.springframework.ai:spring-ai-starter-model-openai'
+
+    // RAG with PostgreSQL/Supabase pgvector and retrieval advisors.
+    implementation 'org.springframework.ai:spring-ai-starter-vector-store-pgvector'
+    implementation 'org.springframework.ai:spring-ai-vector-store-advisor'
+    implementation 'org.springframework.ai:spring-ai-tika-document-reader'
+
+    // MCP Antigravity client over STDIO/SSE/Streamable HTTP.
+    implementation 'org.springframework.ai:spring-ai-starter-mcp-client'
+
+    // Langfuse trace export through OTLP/OpenTelemetry, independent of deployment type.
+    implementation 'org.springframework.boot:spring-boot-starter-opentelemetry'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

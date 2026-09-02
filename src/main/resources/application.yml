@@ -1,0 +1,49 @@
+server:
+  port: ${SERVER_PORT:8080}
+
+spring:
+  datasource:
+    url: ${DB_URL:}
+    username: ${DB_USERNAME:}
+    password: ${DB_PASSWORD:}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+  ai:
+    openai:
+      base-url: ${OPENAI_BASE_URL:}
+      api-key: ${OPENAI_API_KEY:}
+      chat:
+        options:
+          model: ${OPENAI_CHAT_MODEL:}
+      embedding:
+        options:
+          model: ${OPENAI_EMBEDDING_MODEL:}
+          encoding-format: float
+
+    vectorstore:
+      pgvector:
+        table-name: ${PGVECTOR_TABLE_NAME:vector_store}
+        dimensions: ${EMBEDDING_DIMENSIONS:3072}
+        distance-type: COSINE_DISTANCE
+        initialize-schema: false
+
+langfuse:
+  public-key: ${LANGFUSE_PUBLIC_KEY:}
+  secret-key: ${LANGFUSE_SECRET_KEY:}
+  host: ${LANGFUSE_HOST:http://localhost:3000}
+
+mcp:
+  antigravity:
+    enabled: ${MCP_ANTIGRAVITY_ENABLED:true}
+    endpoint: ${MCP_ANTIGRAVITY_ENDPOINT:}
+    token: ${MCP_ANTIGRAVITY_TOKEN:}
+
+management:
+  otlp:
+    metrics:
+      export:
+        enabled: false
