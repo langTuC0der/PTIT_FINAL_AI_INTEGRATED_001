@@ -36,6 +36,7 @@ dependencies {
 
     // ChatClient, ChatModel, embeddings, ChatMemory and @Tool support.
     implementation 'org.springframework.ai:spring-ai-starter-model-openai'
+    implementation 'org.springframework.ai:spring-ai-starter-model-ollama'
 
     // RAG with PostgreSQL/Supabase pgvector and retrieval advisors.
     implementation 'org.springframework.ai:spring-ai-starter-vector-store-pgvector'
